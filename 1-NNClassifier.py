@@ -155,10 +155,19 @@ standard_deviation=calculateStandarDeviation(accuracyList,mean)
 
 print "Standard Deviation ",standard_deviation
 
-coordinatelist=list()
+coordinateMap=dict()
 for elem in training:
-    coordinatelist.append((elem[0],elem[1]))
+    key =  elem[4];
+    if coordinateMap.has_key(key):
+        lst=coordinateMap.get(key)
+        lst.append((elem[1],elem[3]))
+        coordinateMap.update({key:lst})
+    else:
+        lst=list()
+        lst.append((elem[1],elem[3]))
+        coordinateMap.update({key:lst});
 
-plotGraph(coordinatelist)
+print coordinateMap
+#plotGraph(coordinatelist)
 
 
