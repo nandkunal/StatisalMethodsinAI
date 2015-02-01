@@ -129,9 +129,41 @@ def drawMatrix(classifiers,predict,actualdict,falsepredlist):
 
 
 
-def plotGraph(datalist):
-    plt.plot(datalist)
+def plotGraph(datalistMap):
+    Irisetosa_list_x=list()
+    Irissetosa_list_y=list()
+    Irisversicolor_list_x=list()
+    Irisversicolor_list_y=list()
+    Irisvirginica_list_x=list()
+    Irisvirginica_list_y=list()
+    for key in datalistMap:
+        #print key
+        plotsc=datalistMap.get(key)
+
+        for a in plotsc:
+            if(key == 'Iris-setosa'):
+                Irisetosa_list_x.append(float(a[0]))
+                Irissetosa_list_y.append(float(a[1]))
+
+            elif(key == 'Iris-versicolor'):
+                Irisversicolor_list_x.append(float(a[0]))
+                Irisversicolor_list_y.append(float(a[1]))
+
+            elif(key == 'Iris-virginica'):
+                Irisvirginica_list_x.append(float(a[0]))
+                Irisvirginica_list_y.append(float(a[1]))
+
+
+    plt.scatter(Irisetosa_list_x,Irissetosa_list_y,label='Iris-setosa',color='red',marker='x')
+    plt.scatter(Irisversicolor_list_x,Irisversicolor_list_y,label='Iris-versicolor',color='blue',marker='^')
+    plt.scatter(Irisvirginica_list_x,Irisvirginica_list_y,label='Iris-virginica',color='green',marker='o')
+        #labels
+    plt.xlabel("Sepal width")
+    plt.ylabel("Petal width")
+    plt.title("Classification")
     plt.show()
+
+
 
 
 
@@ -154,20 +186,21 @@ print "Mean ",mean
 standard_deviation=calculateStandarDeviation(accuracyList,mean)
 
 print "Standard Deviation ",standard_deviation
-
+#print training
 coordinateMap=dict()
 for elem in training:
-    key =  elem[4];
+    key =  elem[4]
     if coordinateMap.has_key(key):
         lst=coordinateMap.get(key)
         lst.append((elem[1],elem[3]))
         coordinateMap.update({key:lst})
     else:
-        lst=list()
-        lst.append((elem[1],elem[3]))
-        coordinateMap.update({key:lst});
+        lstval=list()
+        lstval.append((elem[1],elem[3]))
+        coordinateMap.update({key:lstval});
 
-print coordinateMap
-#plotGraph(coordinatelist)
+#print coordinateMap
+plotGraph(coordinateMap)
+
 
 
